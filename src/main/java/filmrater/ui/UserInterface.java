@@ -1,8 +1,10 @@
 package filmrater.ui;
 
+import filmrater.domain.Film;
 import filmrater.domain.FilmService;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.Scanner;
 
 @AllArgsConstructor
@@ -18,6 +20,7 @@ public class UserInterface {
             System.out.println("What do you want to do?");
             System.out.println("1. Add a film to the DB.");
             System.out.println("2. Get a film from DB.");
+            System.out.println("3. Get all films titled...");
             final int selectedOption = input.nextInt();
             switch (selectedOption) {
                 case 1:
@@ -26,9 +29,23 @@ public class UserInterface {
                 case 2:
                     getFilmCase();
                     break;
+                case 3:
+                    getFilmsByTitleCase();
+                    break;
             }
             shouldContinue = shouldContinue();
         }
+    }
+
+    private void getFilmsByTitleCase() {
+        System.out.println("Enter the title of the film:");
+        final String title = input.next();
+        List<Film> filmsByTitle = filmService.getFilmsByTitle(title);
+        System.out.println("Found films:");
+        for (Film film : filmsByTitle) {
+            System.out.println(film.getTitle());
+        }
+
     }
 
     private void getFilmCase() {
