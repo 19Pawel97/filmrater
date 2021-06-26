@@ -3,6 +3,7 @@ package filmrater.domain;
 import filmrater.infrastructure.DuplicatedKeyException;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -19,5 +20,9 @@ public class FilmService {
 
     public Optional<Film> getFilm(String title, int releaseYear) {
         return filmRepository.findOneFilm(title, releaseYear);
+    }
+
+    public List<Film> getFilmsByTitle(String title) {
+        return filmRepository.findByTitle(title);
     }
 }

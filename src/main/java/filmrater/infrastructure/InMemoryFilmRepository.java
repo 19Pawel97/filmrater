@@ -37,6 +37,13 @@ public class InMemoryFilmRepository implements FilmRepository {
         return Optional.ofNullable(films.get(key));
     }
 
+    @Override
+    public List<Film> findByTitle(String title) {
+        return films.values().stream()
+                .filter(film -> film.getTitle().equals(title))
+                .collect(Collectors.toList());
+    }
+
     private String createKey(Film film) {
         return film.getTitle() + film.getReleaseYear();
     }
