@@ -10,6 +10,4 @@ import lombok.Getter;
 public class Film {
     private final String title;
     private final int releaseYear;
-
-
 }
