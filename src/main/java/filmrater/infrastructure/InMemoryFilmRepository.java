@@ -5,7 +5,9 @@ import filmrater.domain.Film;
 import filmrater.domain.FilmRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InMemoryFilmRepository implements FilmRepository {
     private static final Map<String, Film> films = new HashMap<>();
@@ -21,6 +23,11 @@ public class InMemoryFilmRepository implements FilmRepository {
         } else {
             throw new DuplicatedFilmException(film.getTitle() + " already in DB.");
         }
+    }
+
+    @Override
+    public List<Film> getAll() {
+        return films.values().stream().collect(Collectors.toList());
     }
 
     private String createKey(Film film) {
