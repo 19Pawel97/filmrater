@@ -7,6 +7,7 @@ import filmrater.domain.FilmRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class InMemoryFilmRepository implements FilmRepository {
@@ -31,9 +32,9 @@ public class InMemoryFilmRepository implements FilmRepository {
     }
 
     @Override
-    public Film findOneFilm(String title, int releaseYear) {
+    public Optional<Film> findOneFilm(String title, int releaseYear) {
         final String key = createKey(title,releaseYear);
-        return films.get(key);
+        return Optional.ofNullable(films.get(key));
     }
 
     private String createKey(Film film) {
