@@ -30,7 +30,17 @@ public class InMemoryFilmRepository implements FilmRepository {
         return films.values().stream().collect(Collectors.toList());
     }
 
+    @Override
+    public Film findOneFilm(String title, int releaseYear) {
+        final String key = createKey(title,releaseYear);
+        return films.get(key);
+    }
+
     private String createKey(Film film) {
         return film.getTitle() + film.getReleaseYear();
+    }
+
+    private String createKey(String title, int releaseYear) {
+        return title + releaseYear;
     }
 }

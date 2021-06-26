@@ -31,4 +31,16 @@ public class FilmServiceIntegrationTest {
         assertEquals(FilmSample.FilmSample().getReleaseYear(), film.getReleaseYear());
         assertEquals(1, films.size());
     }
+
+    @Test
+    void shouldAddFilm2() {
+        // when
+        filmService.addFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+
+        // then
+        final Film film = filmService.getFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+        assertEquals(FilmSample.FilmSample(), film);
+        assertEquals(FilmSample.FilmSample().getTitle(), film.getTitle());
+        assertEquals(FilmSample.FilmSample().getReleaseYear(), film.getReleaseYear());
+    }
 }

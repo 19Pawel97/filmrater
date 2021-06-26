@@ -14,4 +14,8 @@ public class FilmService {
             throw new DuplicatedFilmException("The film already in the db.", dke);
         }
     }
+
+    public Film getFilm(String title, int releaseYear) {
+        return filmRepository.findOneFilm(title, releaseYear);
+    }
 }
