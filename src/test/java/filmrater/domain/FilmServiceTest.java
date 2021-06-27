@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class FilmServiceTest {
     private FilmService filmService;
     private FilmRepository filmRepository;
+    private FilmRater filmRater;
 
     @BeforeEach
     void setUp() {
         filmRepository = Mockito.mock(FilmRepository.class);
-        filmService = new FilmService(filmRepository);
+        filmRater = Mockito.mock(FilmRater.class);
+        filmService = new FilmService(filmRepository, filmRater);
     }
 
     @Test

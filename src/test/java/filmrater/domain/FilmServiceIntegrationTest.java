@@ -1,25 +1,31 @@
 package filmrater.domain;
 
 import filmrater.infrastructure.InMemoryFilmRepository;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FilmServiceIntegrationTest {
     private FilmService filmService;
     private FilmRepository filmRepository;
+    private FilmRater filmRater;
 
     @BeforeEach
     void setUp() {
         filmRepository = new InMemoryFilmRepository();
-        filmService = new FilmService(filmRepository);
+        filmRater = new SimpleFilmRater();
+        filmService = new FilmService(filmRepository, filmRater);
+    }
+
+    @AfterEach
+    void tearDown() {
+        filmRepository.deleteAll();
     }
 
     @Test
@@ -43,7 +49,7 @@ public class FilmServiceIntegrationTest {
 
         // then
         final Optional<Film> film = filmService.getFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
-        Assertions.assertTrue(film.isPresent());
+        assertTrue(film.isPresent());
         assertEquals(FilmSample.FilmSample(), film.get());
         assertEquals(FilmSample.FilmSample().getTitle(), film.get().getTitle());
         assertEquals(FilmSample.FilmSample().getReleaseYear(), film.get().getReleaseYear());
@@ -91,10 +97,28 @@ public class FilmServiceIntegrationTest {
                 .findFirst()
                 .orElse(null);
 
-        assertEquals("Rambo",rambo.getTitle());
-        assertEquals("Moonraker",moonraker.getTitle());
+        assertEquals("Rambo", rambo.getTitle());
+        assertEquals("Moonraker", moonraker.getTitle());
         assertEquals(releaseYear, releaseYearsOfFilms.get(0));
         assertEquals(releaseYear, releaseYearsOfFilms.get(1));
         assertEquals(2, releaseYearsOfFilms.size());
+    }
+
+    @Test
+    void shouldRateFilm() {
+        // given
+        final int rating = 7;
+        filmService.addFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+
+        // when
+        filmService.rateFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR, rating);
+
+
+        // then
+        final Optional<Film> film = filmService.getFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+        assertTrue(film.isPresent());
+        assertNotNull(film.get().getRating());
+        assertEquals(Integer.valueOf(rating).doubleValue(), film.get().getRating().getRating());
+        assertEquals(1, film.get().getRating().getCounter());
     }
 }

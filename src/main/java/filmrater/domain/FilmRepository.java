@@ -13,4 +13,8 @@ public interface FilmRepository {
     List<Film> findByTitle(String title);
 
     List<Film> getFilmsByReleaseYear(int releaseYear);
+
+    void update(Film film);
+
+    void deleteAll();
 }
