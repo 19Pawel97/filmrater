@@ -2,6 +2,7 @@ package filmrater.infrastructure;
 
 import filmrater.domain.DuplicatedFilmException;
 import filmrater.domain.Film;
+import filmrater.domain.FilmNotFoundException;
 import filmrater.domain.FilmRepository;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class InMemoryFilmRepository implements FilmRepository {
         final Film theFilm = films.get(key);
 
         if (theFilm == null) {
-            films.put(key,film);
+            films.put(key, film);
         } else {
             throw new DuplicatedFilmException(film.getTitle() + " already in DB.");
         }
@@ -33,7 +34,7 @@ public class InMemoryFilmRepository implements FilmRepository {
 
     @Override
     public Optional<Film> findOneFilm(String title, int releaseYear) {
-        final String key = createKey(title,releaseYear);
+        final String key = createKey(title, releaseYear);
         return Optional.ofNullable(films.get(key));
     }
 
@@ -53,7 +54,12 @@ public class InMemoryFilmRepository implements FilmRepository {
 
     @Override
     public void update(Film film) {
-        // TODO
+        final boolean contains = films.values().contains(film);
+        if (contains) {
+            films.put(createKey(film), film);
+        } else {
+            throw new KeyNotFoundException(film.getTitle() + " not found!");
+        }
     }
 
     @Override
