@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class AddFilmCase extends CaseHandler {
     public AddFilmCase(Scanner scanner, FilmService filmService) {
-        super(3, "Add a film", scanner, filmService);
+        super(3, "Add a film.", scanner, filmService);
     }
 
     @Override

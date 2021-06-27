@@ -2,10 +2,7 @@ package filmrater;
 
 import filmrater.domain.FilmService;
 import filmrater.infrastructure.InMemoryFilmRepository;
-import filmrater.ui.AddFilmCase;
-import filmrater.ui.GetFilmCase;
-import filmrater.ui.GetFilmsByTitleCase;
-import filmrater.ui.UserInterface;
+import filmrater.ui.*;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -19,7 +16,8 @@ public class App {
                 scanner,
                 Set.of(new GetFilmsByTitleCase(scanner, filmService),
                         new GetFilmCase(scanner, filmService),
-                        new AddFilmCase(scanner, filmService)));
+                        new AddFilmCase(scanner, filmService),
+                        new GetFilmByReleaseYearCase(scanner, filmService)));
         userInterface.start();
     }
 }

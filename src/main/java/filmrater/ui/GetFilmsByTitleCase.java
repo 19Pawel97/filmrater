@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class GetFilmsByTitleCase extends CaseHandler {
     public GetFilmsByTitleCase(Scanner scanner, FilmService filmService) {
-        super(1, "Find films by title.", scanner, filmService);
+        super(1, "Find films titled...", scanner, filmService);
     }
 
     @Override
