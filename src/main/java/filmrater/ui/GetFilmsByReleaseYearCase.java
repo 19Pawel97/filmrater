@@ -6,8 +6,8 @@ import filmrater.domain.FilmService;
 import java.util.List;
 import java.util.Scanner;
 
-public class GetFilmByReleaseYearCase extends CaseHandler{
-    public GetFilmByReleaseYearCase(Scanner scanner, FilmService filmService) {
+public class GetFilmsByReleaseYearCase extends CaseHandler{
+    public GetFilmsByReleaseYearCase(Scanner scanner, FilmService filmService) {
         super(4, "Find films released in...", scanner, filmService);
     }
 
