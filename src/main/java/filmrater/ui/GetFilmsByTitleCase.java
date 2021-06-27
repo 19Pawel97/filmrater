@@ -19,7 +19,7 @@ public class GetFilmsByTitleCase extends CaseHandler {
         if (filmsByTitle.size() > 0) {
             System.out.println("Found films:");
             for (Film film : filmsByTitle) {
-                System.out.println(film.getTitle() + " " + film.getReleaseYear());
+                System.out.println(film.getTitle() + " " + film.getReleaseYear() + " " + film.getRating());
             }
         } else {
             System.out.println("No films found!");

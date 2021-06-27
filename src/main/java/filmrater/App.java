@@ -18,7 +18,8 @@ public class App {
                 Set.of(new GetFilmsByTitleCase(scanner, filmService),
                         new GetFilmCase(scanner, filmService),
                         new AddFilmCase(scanner, filmService),
-                        new GetFilmsByReleaseYearCase(scanner, filmService)));
+                        new GetFilmsByReleaseYearCase(scanner, filmService),
+                        new RateCase(scanner, filmService)));
         userInterface.start();
     }
 }

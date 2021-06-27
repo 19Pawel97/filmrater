@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
-@ToString
+@ToString //TODO
 public class Rating {
     private final double rating;
     private final int counter;
