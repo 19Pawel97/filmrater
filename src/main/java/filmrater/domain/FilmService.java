@@ -25,4 +25,8 @@ public class FilmService {
     public List<Film> getFilmsByTitle(String title) {
         return filmRepository.findByTitle(title);
     }
+
+    public List<Film> getFilmsByReleaseYear(int releaseYear) {
+        return filmRepository.getFilmsByReleaseYear(releaseYear);
+    }
 }

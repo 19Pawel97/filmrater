@@ -11,4 +11,6 @@ public interface FilmRepository {
     Optional<Film> findOneFilm(String title, int releaseYear);
 
     List<Film> findByTitle(String title);
+
+    List<Film> getFilmsByReleaseYear(int releaseYear);
 }
