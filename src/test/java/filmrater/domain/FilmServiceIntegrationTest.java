@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -120,5 +121,23 @@ public class FilmServiceIntegrationTest {
         assertNotNull(film.get().getRating());
         assertEquals(Integer.valueOf(rating).doubleValue(), film.get().getRating().getRating());
         assertEquals(1, film.get().getRating().getCounter());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserTriesToFindFilmBefore1900() {
+        // given
+        final int releaseYear = 1899;
+
+        // when and then
+        assertThrows(TooOldFilmException.class,() -> filmService.getFilmsByReleaseYear(releaseYear));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserTriesToFindFilmReleasedInTheFuture() {
+        // given
+        final int releaseYear = LocalDate.now().getYear() + 1;
+
+        // when and then
+        assertThrows(FutureFilmException.class,() -> filmService.getFilmsByReleaseYear(releaseYear));
     }
 }

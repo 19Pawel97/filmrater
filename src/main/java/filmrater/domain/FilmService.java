@@ -3,6 +3,7 @@ package filmrater.domain;
 import filmrater.infrastructure.DuplicatedKeyException;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +29,16 @@ public class FilmService {
     }
 
     public List<Film> getFilmsByReleaseYear(int releaseYear) {
+        if (releaseYear < 1900) {
+            throw new TooOldFilmException("The film is too old!");
+        } else if (releaseYear > LocalDate.now().getYear()) {
+            throw  new FutureFilmException("The film cannot be released in the future!");
+        }
         return filmRepository.getFilmsByReleaseYear(releaseYear);
     }
 
     public void rateFilm(String title, int releaseYear, int rating) {
-        final Film film = filmRepository.findOneFilm(title,releaseYear)
+        final Film film = filmRepository.findOneFilm(title, releaseYear)
                 .orElseThrow(() -> new FilmNotFoundException(title + " not in DB!"));
 
         Rating newRating = filmRater.calculateRating(film.getRating(), rating);

@@ -16,6 +16,6 @@ public class GetFilmsByReleaseYearCase extends CaseHandler{
         System.out.println("Enter the release year:");
         final int releaseYear = scanner.nextInt();
         List<Film> filmsByReleaseYear = filmService.getFilmsByReleaseYear(releaseYear);
-        filmsByReleaseYear.forEach(film -> System.out.println(film.getTitle()));
+        filmsByReleaseYear.forEach(film -> System.out.println(film.getTitle() + " was found. Released in " + film.getReleaseYear()+ ". Rating - " + film.getRating().getRating()));
     }
 }
