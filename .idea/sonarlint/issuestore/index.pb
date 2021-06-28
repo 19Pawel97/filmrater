@@ -6,11 +6,7 @@ k
 r
 Bsrc/main/java/filmrater/infrastructure/DuplicatedKeyException.java,5\3\53d26f7ac553a68a888cc9c36bbe9d8f65f52ef6
 [
-+src/main/java/filmrater/ui/AddFilmCase.java,4\d\4d269735229dbdf305e4464cc4505da4c397054d
-[
 +src/main/java/filmrater/ui/CaseHandler.java,8\4\8451ac2a2bc77b0e9c56b97416f52d489cc02282
-]
--src/main/java/filmrater/ui/UserInterface.java,4\5\45bbdc2d7037e310b71eab724bbb66aa2923efcf
 i
 9src/main/java/filmrater/domain/FilmNotFoundException.java,c\3\c3d132fa14183c6c6be1a508d91bba792d1a6ab6
 ]

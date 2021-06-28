@@ -20,12 +20,19 @@ public class UserInterface {
 
         while (shouldContinue) {
             System.out.println("What do you want to do?");
-            caseHandlers.forEach(caseHandler -> System.out.println(caseHandler.getId() + ". " + caseHandler.getDescription()));
-            final int selectedOption = input.nextInt();
             caseHandlers.stream()
-                    .filter(caseHandler -> caseHandler.getId() == selectedOption)
-                    .findFirst()
-                    .ifPresentOrElse(CaseHandler::handle, () -> System.out.println("Wrong option!"));
+                    .sorted((f,s) -> f.getId() - s.getId())
+                    .forEach(caseHandler -> System.out.println(caseHandler.getId() + ". " + caseHandler.getDescription()));
+            try {
+                final int selectedOption = input.nextInt();
+                caseHandlers.stream()
+                        .filter(caseHandler -> caseHandler.getId() == selectedOption)
+                        .findFirst()
+                        .ifPresentOrElse(CaseHandler::handle, () -> System.out.println("Wrong option!"));
+            } catch (Exception e) {
+                input.nextLine();
+                System.out.println("Invalid input!");
+            }
             shouldContinue = shouldContinue();
         }
     }

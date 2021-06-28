@@ -17,7 +17,7 @@ public class GetFilmCase extends CaseHandler {
         final int releaseYear = scanner.nextInt();
         filmService.getFilm(title,releaseYear)
                 .ifPresentOrElse(
-                        film -> System.out.println(title + " was found. Released in " + releaseYear + ". Rating - " + film.getRating().getRating() + "."),
+                        film -> System.out.println(title + " was found. Released in " + releaseYear + "."),
                         () -> System.out.println(title + " not found")
                 );
     }
