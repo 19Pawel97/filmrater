@@ -19,4 +19,6 @@ public interface FilmRepository {
     void deleteAll();
 
     double getRating(String title, int releaseYear);
+
+    List<Film> getFilmsRatedBetween(double min, double max);
 }

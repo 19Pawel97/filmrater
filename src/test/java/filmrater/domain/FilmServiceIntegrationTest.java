@@ -129,7 +129,7 @@ public class FilmServiceIntegrationTest {
         final int releaseYear = 1899;
 
         // when and then
-        assertThrows(TooOldFilmException.class,() -> filmService.getFilmsByReleaseYear(releaseYear));
+        assertThrows(TooOldFilmException.class, () -> filmService.getFilmsByReleaseYear(releaseYear));
     }
 
     @Test
@@ -138,6 +138,37 @@ public class FilmServiceIntegrationTest {
         final int releaseYear = LocalDate.now().getYear() + 1;
 
         // when and then
-        assertThrows(FutureFilmException.class,() -> filmService.getFilmsByReleaseYear(releaseYear));
+        assertThrows(FutureFilmException.class, () -> filmService.getFilmsByReleaseYear(releaseYear));
+    }
+
+    @Test
+    void shouldGetRating() {
+        // given
+        filmService.addFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+        filmService.rateFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR, 8);
+
+        // when
+        double rating = filmService.getRating(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+
+        // then
+        assertEquals(8, rating);
+    }
+
+    @Test
+    void shouldGetFilmsRatedBetween() {
+        // given
+        filmService.addFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR);
+        filmService.rateFilm(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR, 8);
+        filmService.addFilm("Rambo", 1999);
+        filmService.rateFilm("Rambo", 1999, 7);
+
+        // when
+        List<Film> filmsRatedBetween = filmService.getFilmsRatedBetween(8, 9);
+
+        // then
+        assertTrue(!(filmsRatedBetween.isEmpty()));
+        assertEquals(1, filmsRatedBetween.size());
+        assertEquals(new Film(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR).getTitle(), filmsRatedBetween.get(0).getTitle());
+        assertEquals(new Film(FilmSample.FILM_SAMPLE_TITLE, FilmSample.SAMPLE_RELEASE_YEAR).getReleaseYear(), filmsRatedBetween.get(0).getReleaseYear());
     }
 }

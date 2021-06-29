@@ -4,6 +4,7 @@ import filmrater.infrastructure.DuplicatedKeyException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,19 @@ public class FilmService {
         } else if (releaseYear > LocalDate.now().getYear()) {
             throw new FutureFilmException("The film cannot be released in the future!");
         }
-         return filmRepository.getRating(title, releaseYear);
+        return filmRepository.getRating(title, releaseYear);
+    }
+
+    public List<Film> getFilmsRatedBetween(double min, double max) {
+        if (min < 0) {
+            System.out.println("The min. rating cannot be lower than 0");
+            return new ArrayList<>();
+        } else if (max > 10) {
+            System.out.println("The max. rating cannot be greater than 10");
+            return new ArrayList<>();
+        } else {
+            List<Film> theFilms = filmRepository.getFilmsRatedBetween(min, max);
+            return theFilms;
+        }
     }
 }

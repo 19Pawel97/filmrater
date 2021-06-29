@@ -83,6 +83,15 @@ public class InMemoryFilmRepository implements FilmRepository {
         }
     }
 
+    @Override
+    public List<Film> getFilmsRatedBetween(double min, double max) {
+        List<Film> theFilms = films.values().stream()
+                .filter(f -> f.getRating().getRating() >= min)
+                .filter(f -> f.getRating().getRating() <= max)
+                .collect(Collectors.toList());
+        return theFilms;
+    }
+
     private String createKey(Film film) {
         return film.getTitle() + film.getReleaseYear();
     }

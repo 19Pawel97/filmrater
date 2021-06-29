@@ -20,7 +20,8 @@ public class App {
                         new AddFilmCase(scanner, filmService),
                         new GetFilmsByReleaseYearCase(scanner, filmService),
                         new RateCase(scanner, filmService),
-                        new GetRatingCase(scanner,filmService)));
+                        new GetRatingCase(scanner,filmService),
+                        new GetFilmsRatedFromTo(scanner, filmService)));
         userInterface.start();
     }
 }
