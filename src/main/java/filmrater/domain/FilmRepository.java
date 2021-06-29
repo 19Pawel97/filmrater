@@ -17,4 +17,6 @@ public interface FilmRepository {
     void update(Film film);
 
     void deleteAll();
+
+    double getRating(String title, int releaseYear);
 }

@@ -32,7 +32,7 @@ public class FilmService {
         if (releaseYear < 1900) {
             throw new TooOldFilmException("The film is too old!");
         } else if (releaseYear > LocalDate.now().getYear()) {
-            throw  new FutureFilmException("The film cannot be released in the future!");
+            throw new FutureFilmException("The film cannot be released in the future!");
         }
         return filmRepository.getFilmsByReleaseYear(releaseYear);
     }
@@ -44,5 +44,14 @@ public class FilmService {
         Rating newRating = filmRater.calculateRating(film.getRating(), rating);
         film.setRating(newRating);
         filmRepository.update(film);
+    }
+
+    public double getRating(String title, int releaseYear) {
+        if (releaseYear < 1900) {
+            throw new TooOldFilmException("The film is too old!");
+        } else if (releaseYear > LocalDate.now().getYear()) {
+            throw new FutureFilmException("The film cannot be released in the future!");
+        }
+         return filmRepository.getRating(title, releaseYear);
     }
 }

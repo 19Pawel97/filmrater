@@ -1,10 +1,8 @@
 package filmrater.ui;
 
-import filmrater.domain.Film;
 import filmrater.domain.FilmService;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 

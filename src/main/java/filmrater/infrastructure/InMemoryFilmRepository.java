@@ -2,8 +2,8 @@ package filmrater.infrastructure;
 
 import filmrater.domain.DuplicatedFilmException;
 import filmrater.domain.Film;
-import filmrater.domain.FilmNotFoundException;
 import filmrater.domain.FilmRepository;
+import filmrater.domain.Rating;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +65,22 @@ public class InMemoryFilmRepository implements FilmRepository {
     @Override
     public void deleteAll() {
         films.clear();
+    }
+
+    @Override
+    public double getRating(String title, int releaseYear) {
+        Optional<Rating> first = films.values().stream()
+                .filter(f -> f.getTitle().equals(title))
+                .filter(f -> f.getReleaseYear() == releaseYear)
+                .map(f -> f.getRating())
+                .findFirst();
+        if (first.isEmpty()) {
+            System.out.println("No rating!");
+            return 0;
+        } else {
+            double rating = first.get().getRating();
+            return rating;
+        }
     }
 
     private String createKey(Film film) {
