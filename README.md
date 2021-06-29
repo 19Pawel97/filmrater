@@ -1,1 +1,1 @@
-# filmrater - a simple IMDB-like console app enabling among others adding films, finding and rating them.
+# filmrater - a simple IMDB-like console app enabling among others adding films, finding and rating them in a in-memory repo.
